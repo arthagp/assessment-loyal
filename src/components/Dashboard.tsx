@@ -14,7 +14,7 @@ const Dashboard = () => {
   const { value, onChange, reset } = useInput("");
 
   return (
-    <div className="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8 scroll-smooth">
+    <div className="w-full min-h-screen bg-gray-200 flex justify-between items-center p-20">
       <div className="max-w-5xl mx-auto flex flex-col lg:flex-row justify-between items-center lg:items-start">
         <div className="text-center lg:text-left lg:w-1/2 lg:pr-10">
           <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-6 sm:mb-8">

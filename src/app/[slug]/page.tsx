@@ -5,7 +5,7 @@ const LobbyRoom = () => {
   // TODO: mengecek jika tidak ada orang yang masuk di code tersebut maka, break out room notif 'tidak ada orang disini', akan tetapi jika ada muncul avatar masing2 username 'AG'/'GP'..
 
   return (
-    <div className="w-full h-16 min-h-screen bg-gray-200 flex justify-between items-center p-20">
+    <div className="w-full min-h-screen bg-gray-200 flex justify-between items-center p-20">
       <div className="w-1/2">
         <div className="w-[600px] h-[500px] bg-black"></div>
       </div>

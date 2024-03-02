@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { verifyToken } from "@/api/fetch";
 import { AxiosResponse } from "axios";
+import { useRouter } from "next/navigation";
 
 interface AuthUser {
   username: string;
@@ -19,6 +20,8 @@ const Navbar = () => {
 
   const [authUser, setAuthUser] = useState<AuthUser | null>(null);
 
+  const router = useRouter();
+
   const handleAuthUser = async () => {
     try {
       const response: AxiosResponse<AuthUser> | undefined = await verifyToken();
@@ -28,6 +31,15 @@ const Navbar = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const routeLogin = () => {
+    router.push("/login");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
   };
 
   // console.log(authUser);
@@ -52,13 +64,16 @@ const Navbar = () => {
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>AGP</AvatarFallback>
             </Avatar>
+            {/* Garis vertikal */}
           </>
         )}
-        {/* Garis vertikal */}
         <span className="h-10 w-[2px] bg-black"></span>
         <div className="flex gap-3">
-          <Button>Login</Button>
-          <Button variant={"secondary"}>Register</Button>
+          {authUser ? (
+            <Button onClick={handleLogout}>Logout</Button>
+          ) : (
+            <Button onClick={routeLogin}>Login</Button>
+          )}
         </div>
       </div>
     </div>

@@ -1,31 +1,47 @@
+"use client";
+
+import React, { useState } from "react";
+import RoomPage from "@/components/Room";
 import Navbar from "@/components/common/Navbar";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import MediaAccess from "@/components/MediaAccess";
 
 const LobbyRoom = () => {
-  // TODO: mengecek jika tidak ada orang yang masuk di code tersebut maka, break out room notif 'tidak ada orang disini', akan tetapi jika ada muncul avatar masing2 username 'AG'/'GP'..
+  const [showRoom, setShowRoom] = useState(false);
+
+  const routeToRoom = () => {
+    setShowRoom(true);
+  };
 
   return (
     <>
-      <Navbar />
-      <div className="w-full min-h-screen bg-gray-100 flex justify-between items-center p-20">
-        <div className="w-1/2">
-          <div className="w-[600px] h-[500px] bg-black"></div>
-        </div>
-        <div className="flex flex-col justify-center items-center gap-10 w-1/2">
-          <div>
-            <h2 className="text-4xl font-semibold">Siap Bergabung?</h2>
-            {/* cek apakah ada room */}
-            <p>Tidak ada orang lain di sini.</p>
+      {showRoom ? (
+        <RoomPage />
+      ) : (
+        <>
+          <Navbar />
+          <div className="w-full min-h-screen bg-gray-100 flex justify-between items-center p-20">
+            <div className="w-1/2">
+              <MediaAccess />
+            </div>
+            <div className="flex flex-col justify-center items-center gap-10 w-1/2">
+              <div>
+                <h2 className="text-4xl font-semibold">Siap Bergabung?</h2>
+                {/* (optional) cek apakah ada room */}
+                <p>Tidak ada orang lain di sini.</p>
+              </div>
+              <div className="flex justify-center items-center gap-5">
+                <Button onClick={routeToRoom} className="rounded-2xl">
+                  Gabung Sekarang
+                </Button>
+                <Button className="rounded-2xl bg-gray-200 text-gray-700 hover:bg-gray-300">
+                  Share screen
+                </Button>
+              </div>
+            </div>
           </div>
-          <div className="flex justify-center items-center gap-5">
-            <Button className="rounded-2xl">Gabung Sekarang</Button>
-            <Button className="rounded-2xl bg-gray-200 text-gray-700 hover:bg-gray-300">
-              Share screen
-            </Button>
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };

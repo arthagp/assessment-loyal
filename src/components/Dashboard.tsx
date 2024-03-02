@@ -1,28 +1,53 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import heroImage from "../../public/hero-image.svg";
 import { Button } from "./ui/button";
 import { FaVideo, FaKeyboard } from "react-icons/fa";
 import useInput from "@/hooks/useInput";
-import Modal from "./common/Modal";
+import ModalCopyClipBoard from "./common/ModalCopyClipBoard";
+import { generateRandomString } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
   const [value, onChange, reset] = useInput("");
   const [isOpen, setIsOpen] = useState(false);
+  const [valueLinkTemp, setValueLinkTemp] = useState<string[]>([]);
+  const [valueLink, setValueLink] = useState("");
+
+  const router = useRouter();
 
   const openModal = () => {
     setIsOpen(true);
   };
 
-  // console.log(isOpen);
+  useEffect(() => {
+    setValueLink(generateRandomString(12)); // Menginisialisasi valueLink hanya sekali saat komponen dimuat
+  }, []);
 
-  const valueLink = "qed-wrf-qwe";
+  const addToValueLinkTemp = () => {
+    setValueLinkTemp((prevValue: string[]) => [...prevValue, valueLink]);
+  };
+
+  const goToRoom = () => {
+    // Cek apakah ada kode ruangan yang sama dengan nilai valueLinkTemp
+    const index = valueLinkTemp.findIndex((link) => link === value);
+    if (index !== -1) {
+      router.push(`/room/${valueLinkTemp[index]}`);
+    } else {
+      alert("Kode ruangan tidak valid atau tidak ditemukan");
+    }
+  };
+
   return (
     <>
       {isOpen && (
-        <Modal onClose={() => setIsOpen(false)} accessLink={valueLink} />
+        <ModalCopyClipBoard
+          onClose={() => setIsOpen(false)}
+          accessLink={valueLink}
+          addToValueLinkTemp={addToValueLinkTemp} // Mengirim fungsi addToValueLinkTemp ke ModalCopyClipBoard
+        />
       )}
       <div className="w-full min-h-screen bg-gray-100 flex justify-between items-center p-5 lg:p-20">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-center max-sm:mt-20">
@@ -61,6 +86,7 @@ const Dashboard = () => {
                 className={`${
                   value ? "bg-blue-500" : "bg-gray-300"
                 } rounded-lg px-4 py-2 text-white`}
+                onClick={goToRoom}
               >
                 Gabung
               </button>

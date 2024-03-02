@@ -1,12 +1,19 @@
+"use client";
+
 import React, { useState } from "react";
 import { FiCopy } from "react-icons/fi";
 
 type ModalProps = {
   onClose: () => void;
   accessLink: string;
+  addToValueLinkTemp: () => void; // Tambahkan prop untuk menerima fungsi addToValueLinkTemp
 };
 
-const Modal = ({ onClose, accessLink }: ModalProps) => {
+const ModalCopyClipBoard = ({
+  onClose,
+  accessLink,
+  addToValueLinkTemp,
+}: ModalProps) => {
   const [copied, setCopied] = useState(false);
 
   // Fungsi untuk menyalin teks ke clipboard
@@ -14,6 +21,7 @@ const Modal = ({ onClose, accessLink }: ModalProps) => {
     navigator.clipboard
       .writeText(accessLink)
       .then(() => {
+        addToValueLinkTemp(); // Panggil fungsi addToValueLinkTemp saat teks berhasil disalin
         setCopied(true);
         setTimeout(() => {
           setCopied(false);
@@ -61,4 +69,4 @@ const Modal = ({ onClose, accessLink }: ModalProps) => {
   );
 };
 
-export default Modal;
+export default ModalCopyClipBoard;

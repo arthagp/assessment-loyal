@@ -9,7 +9,7 @@ import useInput from "@/hooks/useInput";
 import Modal from "./common/Modal";
 
 const Dashboard = () => {
-  const { value, onChange, reset } = useInput("");
+  const [value, onChange, reset] = useInput("");
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
@@ -18,10 +18,12 @@ const Dashboard = () => {
 
   // console.log(isOpen);
 
-  const valueLink = 'qed-wrf-qwe'
+  const valueLink = "qed-wrf-qwe";
   return (
     <>
-      {isOpen && <Modal onClose={() => setIsOpen(false)} accessLink={valueLink}/>}
+      {isOpen && (
+        <Modal onClose={() => setIsOpen(false)} accessLink={valueLink} />
+      )}
       <div className="w-full min-h-screen bg-gray-100 flex justify-between items-center p-5 lg:p-20">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-center max-sm:mt-20">
           <div className="text-center lg:text-left lg:w-1/2 lg:pr-10">
@@ -70,6 +72,7 @@ const Dashboard = () => {
               alt="Platform Video Conference"
               width={650}
               height={650}
+              priority
             />
           </div>
         </div>

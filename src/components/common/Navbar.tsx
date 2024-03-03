@@ -56,7 +56,6 @@ const Navbar = () => {
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>AGP</AvatarFallback>
             </Avatar>
-            {/* Garis vertikal */}
           </>
         )}
         <span className="h-10 w-[2px] bg-black"></span>

@@ -5,6 +5,7 @@ import RoomPage from "@/components/rooms/Room";
 import Navbar from "@/components/common/Navbar";
 import { Button } from "@/components/ui/button";
 import MediaAccess from "@/components/etc/MediaAccess";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const LobbyRoom = () => {
   const [showRoom, setShowRoom] = useState(false);
@@ -12,8 +13,6 @@ const LobbyRoom = () => {
   const routeToRoom = () => {
     setShowRoom(true);
   };
-
-  const size = 30;
 
   return (
     <>
@@ -29,8 +28,15 @@ const LobbyRoom = () => {
             <div className="flex flex-col justify-center items-center gap-10 w-1/2">
               <div>
                 <h2 className="text-4xl font-semibold">Siap Bergabung?</h2>
-                {/* (optional) cek apakah ada room */}
-                <p>Tidak ada orang lain di sini.</p>
+                <p className="text-sm font-light my-2">Orang Bergabung:</p>
+                <div className="flex gap-1 mt-5 overflow-x-scroll">
+                  <Avatar>
+                    <AvatarFallback className="bg-teal-300">AGP</AvatarFallback>
+                  </Avatar>
+                  <Avatar>
+                    <AvatarFallback className="bg-teal-300">BOB</AvatarFallback>
+                  </Avatar>
+                </div>
               </div>
               <div className="flex justify-center items-center gap-5">
                 <Button onClick={routeToRoom} className="rounded-2xl">

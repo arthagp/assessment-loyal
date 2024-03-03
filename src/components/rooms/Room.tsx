@@ -9,8 +9,8 @@ const RoomPage = () => {
   const [activeSheet, setActiveSheet] = useState("user"); // Inisialisasi state activeSheet dengan "user"
 
   return (
-    <div className="flex flex-col h-screen">
-      <div className="flex-1 flex justify-center items-center gap-5 p-10 mb-10">
+    <div className="flex flex-col md:h-screen">
+      <div className="flex-1 flex max-sm:flex-col justify-center items-center gap-5 p-5 md:p-10 mb-10">
         <MediaAccess />
         {activeSheet === "user" && <SheetRoomUser />}
         {activeSheet === "breakoutroom" && <SheetRoomBreakOutRoom />}

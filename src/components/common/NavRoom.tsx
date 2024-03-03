@@ -26,11 +26,11 @@ const NavRoom: React.FC<NavRoomProps> = ({ setActiveSheet }) => {
 
   const iconSize = 25;
   return (
-    <div className="fixed bottom-0 inset-x-0 p-5 px-10 bg-gray-800 flex justify-between items-center text-white">
+    <div className="fixed bottom-0 inset-x-0 p-5 px-10 bg-gray-800 flex justify-between items-center text-white gap-3">
       <div className="flex items-center gap-4">
         <p>11:02</p>
         <span className="h-9 w-[2px] bg-white"></span>
-        <p>wds-fsw-rdw</p>
+        <p className="hidden md:block">wds-fsw-rdw</p>
       </div>
       <div className="flex items-center gap-10">
         <FaPhoneSlash

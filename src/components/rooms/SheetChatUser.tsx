@@ -34,7 +34,7 @@ const SheetChatUser: React.FC<SheetChatUserProps> = ({
   }, [userId]);
 
   return (
-    <div className="w-1/3 h-[95%] bg-gray-100 rounded-md p-5">
+    <div className="w-full md:w-1/3 max-sm:mb-10 md:h-[95%] bg-gray-100 rounded-md p-5">
       <Button className="my-2" onClick={setOpenChat}>
         Kembali
       </Button>

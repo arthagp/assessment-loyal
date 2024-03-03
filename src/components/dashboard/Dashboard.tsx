@@ -9,21 +9,37 @@ import useInput from "@/hooks/useInput";
 import ModalCopyClipBoard from "../common/ModalCopyClipBoard";
 import { generateRandomString } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { AuthUser } from "@/types/AuthUser";
+import { verifyToken } from "@/api/fetch";
+import { Loader2 } from "lucide-react"
 
 const Dashboard = () => {
   const [value, onChange, reset] = useInput("");
   const [isOpen, setIsOpen] = useState(false);
   const [valueLinkTemp, setValueLinkTemp] = useState<string[]>([]);
   const [valueLink, setValueLink] = useState("");
+  const [authUser, setAuthUser] = useState<AuthUser | null>(null);
 
   const router = useRouter();
+
+  const handleAuthUser = async () => {
+    try {
+      const response = await verifyToken();
+      if (response) {
+        setAuthUser(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const openModal = () => {
     setIsOpen(true);
   };
 
   useEffect(() => {
-    setValueLink(generateRandomString(12)); // Menginisialisasi valueLink hanya sekali saat komponen dimuat
+    handleAuthUser();
+    setValueLink(generateRandomString(12));
   }, []);
 
   const addToValueLinkTemp = () => {
@@ -39,6 +55,14 @@ const Dashboard = () => {
       alert("Kode ruangan tidak valid atau tidak ditemukan");
     }
   };
+
+  if (!authUser) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -63,33 +87,41 @@ const Dashboard = () => {
               berinteraksi dan berkolaborasi secara virtual.
             </p>
             <div className="flex flex-col lg:flex-row gap-3 lg:gap-5">
-              <Button onClick={openModal} className="flex gap-2">
-                <span>
-                  <FaVideo />
-                </span>{" "}
-                Rapat Baru
-              </Button>
-              <div className="flex items-center rounded-lg px-4 py-2 bg-white w-full lg:w-auto">
-                <span className="mr-2">
-                  <FaKeyboard />
-                </span>
-                <input
-                  type="text"
-                  placeholder="Masukan Kode"
-                  className="outline-none focus:border-blue-500 flex-grow"
-                  value={value}
-                  onChange={onChange}
-                />
-              </div>
-              <button
-                disabled={!value}
-                className={`${
-                  value ? "bg-blue-500" : "bg-gray-300"
-                } rounded-lg px-4 py-2 text-white`}
-                onClick={goToRoom}
-              >
-                Gabung
-              </button>
+              {authUser !== null ? (
+                <>
+                  <Button onClick={openModal} className="flex gap-2">
+                    <span>
+                      <FaVideo />
+                    </span>{" "}
+                    Rapat Baru
+                  </Button>
+                  <div className="flex items-center rounded-lg px-4 py-2 bg-white w-full lg:w-auto">
+                    <span className="mr-2">
+                      <FaKeyboard />
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="Masukan Kode"
+                      className="outline-none focus:border-blue-500 flex-grow"
+                      value={value}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <button
+                    disabled={!value}
+                    className={`${
+                      value ? "bg-blue-500" : "bg-gray-300"
+                    } rounded-lg px-4 py-2 text-white`}
+                    onClick={goToRoom}
+                  >
+                    Gabung
+                  </button>
+                </>
+              ) : (
+                <p className="text-lg font-medium text-red-500">
+                  Silahkan Login Terlebih dahulu
+                </p>
+              )}
             </div>
           </div>
           <div className="flex justify-center lg:w-1/2 lg:pl-10">

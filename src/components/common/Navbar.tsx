@@ -41,7 +41,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="w-full fixed inset-0 p-10 h-16 bg-gray-200 flex justify-between items-center">
+    <div className="w-full fixed inset-0 p-10 h-10 bg-gray-200 flex justify-between items-center max-sm:gap-5">
       <div>
         <Link href={"/"} className="text-neutral-600 text-3xl font-semibold">
           <span className="text-blue-400">Go</span>Meet
@@ -51,7 +51,7 @@ const Navbar = () => {
         {authUser && ( // Tampilkan elemen hanya jika authUser tersedia
           <>
             <p className="text-neutral-600 font-light">{authUser.name}</p>
-            <Avatar>
+            <Avatar className="hidden md:block">
               {/* Sementara avatar */}
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>AGP</AvatarFallback>

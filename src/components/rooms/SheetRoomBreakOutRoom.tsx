@@ -37,7 +37,7 @@ const SheetRoomBreakOutRoom = () => {
   }, []);
 
   return (
-    <div className="w-1/3 h-[95%] bg-gray-100 rounded-md p-5">
+    <div className="w-full md:w-1/3 max-sm:mb-10 md:h-[95%] bg-gray-100 rounded-md p-5">
       <h2 className="text-lg font-semibold mb-2">Breakout Room</h2>
       {/* Form Pencarian Pengguna */}
       {/* Daftar Pengguna dalam Rapat */}

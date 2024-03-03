@@ -1,18 +1,27 @@
 import React from "react";
-import { FaUsers } from "react-icons/fa"; // Anda bisa mengganti dengan "react-icons" yang sesuai
 import { MdMeetingRoom } from "react-icons/md";
+import { IoMdMic, IoMdMicOff } from "react-icons/io";
+import { FaVideo, FaVideoSlash, FaUsers, FaPhoneSlash } from "react-icons/fa";
+import { BsChatSquareDotsFill } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 
 interface NavRoomProps {
   setActiveSheet: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const NavRoom: React.FC<NavRoomProps> = ({ setActiveSheet }) => {
+  const router = useRouter();
+
   const userIconClick = () => {
     setActiveSheet("user");
   };
 
   const breakoutRoomClick = () => {
     setActiveSheet("breakoutroom");
+  };
+
+  const goToDashboard = () => {
+    router.push("/");
   };
 
   const iconSize = 25;
@@ -24,7 +33,11 @@ const NavRoom: React.FC<NavRoomProps> = ({ setActiveSheet }) => {
         <p>wds-fsw-rdw</p>
       </div>
       <div className="flex items-center gap-10">
-        {/* Tambahkan tombol lain di sini jika diperlukan */}
+        <FaPhoneSlash
+          onClick={goToDashboard}
+          className="cursor-pointer bg-red-400 rounded-full h-10 w-10 p-2"
+          size={iconSize}
+        />
       </div>
       <div className="flex items-center gap-5">
         <FaUsers

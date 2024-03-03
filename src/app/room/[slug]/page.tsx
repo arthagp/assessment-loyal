@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import RoomPage from "@/components/rooms/Room";
 import Navbar from "@/components/common/Navbar";
 import { Button } from "@/components/ui/button";
-import MediaAccess from "@/components/MediaAccess";
+import MediaAccess from "@/components/etc/MediaAccess";
 
 const LobbyRoom = () => {
   const [showRoom, setShowRoom] = useState(false);

@@ -1,4 +1,4 @@
-import LoginForm from "@/components/LoginForm";
+import LoginForm from "@/components/login/LoginForm";
 import Navbar from "@/components/common/Navbar";
 import React from "react";
 

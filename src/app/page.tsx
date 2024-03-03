@@ -1,4 +1,4 @@
-import Dashboard from "@/components/Dashboard";
+import Dashboard from "@/components/dashboard/Dashboard";
 import Navbar from "@/components/common/Navbar";
 
 export default function Home() {

@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import heroImage from "../../public/hero-image.svg";
-import { Button } from "./ui/button";
+import heroImage from "../../../public/hero-image.svg";
+import { Button } from "../ui/button";
 import { FaVideo, FaKeyboard } from "react-icons/fa";
 import useInput from "@/hooks/useInput";
-import ModalCopyClipBoard from "./common/ModalCopyClipBoard";
+import ModalCopyClipBoard from "../common/ModalCopyClipBoard";
 import { generateRandomString } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 

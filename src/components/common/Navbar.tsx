@@ -10,9 +10,6 @@ import { useRouter } from "next/navigation";
 import { AuthUser } from "@/types/AuthUser";
 
 const Navbar = () => {
-  // logo, avatar (username), dan login/register , jika sudah login maka login/register disapper
-  // fetching verifyToken setelah itu data nya di simpan di authUser
-
   const [authUser, setAuthUser] = useState<AuthUser | null>(null);
 
   const router = useRouter();

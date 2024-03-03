@@ -74,8 +74,6 @@ const MediaAccess = () => {
 
   const size = 30;
 
-  //   console.log(micEnabled);
-
   return (
     <div className="w-full">
       <video ref={videoRef} autoPlay muted={micEnabled} />

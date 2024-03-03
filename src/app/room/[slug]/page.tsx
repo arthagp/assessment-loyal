@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import RoomPage from "@/components/Room";
+import RoomPage from "@/components/rooms/Room";
 import Navbar from "@/components/common/Navbar";
 import { Button } from "@/components/ui/button";
 import MediaAccess from "@/components/MediaAccess";
@@ -13,6 +13,8 @@ const LobbyRoom = () => {
     setShowRoom(true);
   };
 
+  const size = 30;
+
   return (
     <>
       {showRoom ? (
@@ -20,8 +22,8 @@ const LobbyRoom = () => {
       ) : (
         <>
           <Navbar />
-          <div className="w-full min-h-screen bg-gray-100 flex justify-between items-center p-20">
-            <div className="w-1/2">
+          <div className="w-full max-sm:flex-col min-h-screen bg-gray-100 flex md:justify-between justify-around items-center md:p-20">
+            <div className="w-1/2 max-sm:w-[90%] flex justify-center items-center mt-20">
               <MediaAccess />
             </div>
             <div className="flex flex-col justify-center items-center gap-10 w-1/2">

@@ -1,0 +1,23 @@
+import React, { useState } from "react";
+import ContentMedia from "@/components/ContentMedia";
+import NavRoom from "@/components/common/NavRoom";
+import SheetRoomUser from "@/components/rooms/SheetRoomUsers";
+import SheetRoomBreakOutRoom from "./SheetRoomBreakOutRoom";
+
+const RoomPage = () => {
+  const [activeSheet, setActiveSheet] = useState("user"); // Inisialisasi state activeSheet dengan "user"
+
+  return (
+    <div className="flex flex-col h-screen">
+      <div className="flex-1 flex justify-center items-center gap-5 p-10 mb-10">
+        {/* Tambahkan prop activeSheet ke SheetRoomUser dan SheetRoomBreakOutRoom */}
+        <ContentMedia />
+        {activeSheet === "user" && <SheetRoomUser />}
+        {activeSheet === "breakoutroom" && <SheetRoomBreakOutRoom />}
+      </div>
+      <NavRoom setActiveSheet={setActiveSheet} /> {/* Kirimkan fungsi setActiveSheet ke NavRoom */}
+    </div>
+  );
+};
+
+export default RoomPage;

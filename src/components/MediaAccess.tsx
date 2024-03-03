@@ -1,18 +1,28 @@
-'use client'
+"use client";
 
 import { useEffect, useState, useRef } from "react";
+import { IoMdMic, IoMdMicOff } from "react-icons/io";
+import { FaVideo, FaVideoSlash } from "react-icons/fa";
 
 const MediaAccess = () => {
   const [stream, setStream] = useState<MediaStream | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null); // Membuat referensi ke elemen video
+  const [micEnabled, setMicEnabled] = useState(true);
+  const [cameraEnabled, setCameraEnabled] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     async function getMediaStream() {
       try {
-        const mediaStream: MediaStream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-          video: true,
-        });
+        let mediaConstraints: MediaStreamConstraints = {
+          audio: micEnabled,
+          video: cameraEnabled,
+        };
+
+        console.log(mediaConstraints);
+
+        const mediaStream: MediaStream =
+          await navigator.mediaDevices.getUserMedia(mediaConstraints);
+        console.log(mediaStream);
         setStream(mediaStream);
       } catch (error) {
         console.error("Error accessing media devices:", error);
@@ -30,17 +40,57 @@ const MediaAccess = () => {
         });
       }
     };
-  }, [stream]);
+  }, [micEnabled, cameraEnabled]);
+
+  // Toggle mic
+  const toggleMic = () => {
+    if (stream) {
+      const audioTracks = stream.getAudioTracks();
+      if (audioTracks.length > 0) {
+        const audioTrack = audioTracks[0];
+        audioTrack.enabled = !audioTrack.enabled;
+        setMicEnabled(audioTrack.enabled);
+      }
+    }
+  };
+
+  // Toggle camera
+  const toggleCamera = () => {
+    if (stream) {
+      const videoTracks = stream.getVideoTracks();
+      if (videoTracks.length > 0) {
+        const videoTrack = videoTracks[0];
+        videoTrack.enabled = !videoTrack.enabled;
+        setCameraEnabled(videoTrack.enabled);
+      }
+    }
+  };
 
   useEffect(() => {
     if (stream && videoRef.current) {
-      videoRef.current.srcObject = stream; // Mengatur sumber objek video ke aliran media
+      videoRef.current.srcObject = stream;
     }
   }, [stream]);
 
+  const size = 30;
+
+  //   console.log(micEnabled);
+
   return (
-    <div>
-      <video ref={videoRef} autoPlay muted playsInline controls />
+    <div className="w-full">
+      <video ref={videoRef} autoPlay muted={micEnabled} />
+      <div className="flex justify-center gap-5 mt-5">
+        <button onClick={toggleMic}>
+          {micEnabled ? <IoMdMic size={size} /> : <IoMdMicOff size={size} />}
+        </button>
+        <button onClick={toggleCamera}>
+          {cameraEnabled ? (
+            <FaVideo size={size} />
+          ) : (
+            <FaVideoSlash size={size} />
+          )}
+        </button>
+      </div>
     </div>
   );
 };

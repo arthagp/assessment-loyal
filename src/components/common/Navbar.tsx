@@ -7,12 +7,7 @@ import Link from "next/link";
 import { verifyToken } from "@/api/fetch";
 import { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
-
-interface AuthUser {
-  username: string;
-  name: string;
-  address: string;
-}
+import { AuthUser } from "@/types/AuthUser";
 
 const Navbar = () => {
   // logo, avatar (username), dan login/register , jika sudah login maka login/register disapper

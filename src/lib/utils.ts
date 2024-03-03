@@ -15,5 +15,13 @@ export function generateRandomString(length: number): string {
   return result;
 }
 
-
+export function getFirstThreeWord(characters: string) {
+  const words = characters.split(" ");
+  let firstThreeWords = "";
+  for (let word of words) {
+    firstThreeWords += word.slice(0, 3);
+    if (firstThreeWords.length >= 3) break;
+  }
+  return firstThreeWords.toUpperCase();
+}
 

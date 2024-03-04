@@ -8,6 +8,7 @@ import { getUsers, verifyToken } from "@/api/fetch";
 import { getFirstThreeWord } from "@/lib/utils";
 import { useDebounce } from "use-debounce";
 import SheetChatUser from "./SheetChatUser";
+import LayoutSheet from "./LayoutSheet";
 
 const SheetRoomUser = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -70,7 +71,7 @@ const SheetRoomUser = () => {
           setOpenChat={() => setOpenChat(false)}
         />
       ) : (
-        <div className="w-full md:w-1/3 max-sm:mb-10 md:h-[95%] bg-gray-100 rounded-md p-5">
+        <LayoutSheet>
           <h2 className="text-lg font-semibold mb-2">Orang</h2>
           {/* Form Pencarian Pengguna */}
           <div className="border border-neutral-400 rounded md w-full h-10 my-6 flex items-center p-1">
@@ -123,7 +124,7 @@ const SheetRoomUser = () => {
               ))}
             </div>
           </div>
-        </div>
+        </LayoutSheet>
       )}
     </>
   );

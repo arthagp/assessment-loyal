@@ -9,6 +9,7 @@ import { getUsers, verifyToken } from "@/api/fetch";
 import { getFirstThreeWord } from "@/lib/utils";
 import { useDebounce } from "use-debounce";
 import { getBreakOutRooms } from "@/api/fetch";
+import LayoutSheet from "./LayoutSheet";
 
 type ListRoom = {
   id: string;
@@ -37,7 +38,7 @@ const SheetRoomBreakOutRoom = () => {
   }, []);
 
   return (
-    <div className="w-full md:w-1/3 max-sm:mb-10 md:h-[95%] bg-gray-100 rounded-md p-5">
+    <LayoutSheet>
       <h2 className="text-lg font-semibold mb-2">Breakout Room</h2>
       {/* Form Pencarian Pengguna */}
       {/* Daftar Pengguna dalam Rapat */}
@@ -56,7 +57,7 @@ const SheetRoomBreakOutRoom = () => {
           ))}
         </div>
       </div>
-    </div>
+    </LayoutSheet>
   );
 };
 

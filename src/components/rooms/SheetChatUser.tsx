@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getChat } from "@/api/fetch";
 import { Button } from "../ui/button";
-import { setLazyProp } from "next/dist/server/api-utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getFirstThreeWord } from "@/lib/utils";
+import LayoutSheet from "./LayoutSheet";
 
 interface SheetChatUserProps {
   userId: string | null;
@@ -34,14 +34,13 @@ const SheetChatUser: React.FC<SheetChatUserProps> = ({
   }, [userId]);
 
   return (
-    <div className="w-full md:w-1/3 max-sm:mb-10 md:h-[95%] bg-gray-100 rounded-md p-5">
+    <LayoutSheet>
       <Button className="my-2" onClick={setOpenChat}>
         Kembali
       </Button>
       <h2 className="text-lg font-semibold mb-2">
         Chat From : {userId ? userId : "Unknown"}
       </h2>
-
       {/* Daftar Pengguna dalam Rapat */}
       <div className="rounded-md w-full border border-neutral-400 ">
         <div className="flex justify-between border-b border-neutral-400 p-2">
@@ -62,7 +61,7 @@ const SheetChatUser: React.FC<SheetChatUserProps> = ({
           ))}
         </div>
       </div>
-    </div>
+    </LayoutSheet>
   );
 };
 

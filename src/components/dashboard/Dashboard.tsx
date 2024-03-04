@@ -11,7 +11,6 @@ import { generateRandomString } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { AuthUser } from "@/types/AuthUser";
 import { verifyToken } from "@/api/fetch";
-import { Loader2 } from "lucide-react"
 
 const Dashboard = () => {
   const [value, onChange, reset] = useInput("");
@@ -56,14 +55,6 @@ const Dashboard = () => {
     }
   };
 
-  if (!authUser) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-      </div>
-    );
-  }
-
   return (
     <>
       {isOpen && (
@@ -74,7 +65,7 @@ const Dashboard = () => {
         />
       )}
       <div className="w-full min-h-screen bg-gray-100 flex justify-between items-center p-5 lg:p-20">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-center max-sm:mt-20">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-center max-lg:mt-20">
           <div className="text-center lg:text-left lg:w-1/2 lg:pr-10">
             <h1 className="text-3xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-4 lg:mb-8">
               Rapat dan Video Untuk Semua Orang

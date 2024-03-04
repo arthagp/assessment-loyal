@@ -1,83 +1,88 @@
 "use client";
-
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, MutableRefObject } from "react";
 import { IoMdMic, IoMdMicOff } from "react-icons/io";
-import { FaVideo, FaVideoSlash } from "react-icons/fa";
+import { FaVideo, FaVideoSlash, FaPhoneSlash } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const MediaAccess = () => {
-  const [stream, setStream] = useState<MediaStream | null>(null);
-  const [micEnabled, setMicEnabled] = useState(true);
-  const [cameraEnabled, setCameraEnabled] = useState(true);
+  //PROBLEM : Masih belum bisa handle mediaDevice, mungkin bisa jika menggunakan webRTC.
+
+  //ISSUE : if Off/on mic or camera its doesn't really off the mic and camera..
+
+  const [micEnabled, setMicEnabled] = useState(false);
+  const [cameraEnabled, setCameraEnabled] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    async function getMediaStream() {
+    const enableMedia = async () => {
       try {
-        let mediaConstraints: MediaStreamConstraints = {
-          audio: micEnabled,
-          video: cameraEnabled,
-        };
-
-        console.log(mediaConstraints);
-
-        const mediaStream: MediaStream =
-          await navigator.mediaDevices.getUserMedia(mediaConstraints);
-        console.log(mediaStream);
-        setStream(mediaStream);
-      } catch (error) {
-        console.error("Error accessing media devices:", error);
-      }
-    }
-
-    if (!stream) {
-      getMediaStream();
-    }
-
-    return () => {
-      if (stream) {
-        stream.getTracks().forEach((track) => {
-          track.stop();
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+          video: true,
         });
+
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+
+        setMicEnabled(true);
+        setCameraEnabled(true);
+      } catch (error) {
+        console.error("Error accessing media devices: ", error);
       }
     };
-  }, [micEnabled, cameraEnabled]);
 
-  // Toggle mic
+    enableMedia();
+
+    return () => {
+      // Cleanup
+      if (videoRef.current) {
+        if (videoRef.current.srcObject) {
+          const stream = videoRef.current.srcObject as MediaStream;
+          const tracks = stream.getTracks();
+
+          tracks.forEach((track: MediaStreamTrack) => {
+            track.stop();
+          });
+        }
+      }
+    };
+  }, []);
+
   const toggleMic = () => {
-    if (stream) {
-      const audioTracks = stream.getAudioTracks();
-      if (audioTracks.length > 0) {
-        const audioTrack = audioTracks[0];
-        audioTrack.enabled = !audioTrack.enabled;
-        setMicEnabled(audioTrack.enabled);
+    setMicEnabled((prevMicEnabled) => !prevMicEnabled);
+    if (videoRef.current) {
+      if (videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        const audioTracks = stream.getAudioTracks();
+        audioTracks[0].enabled = !micEnabled;
       }
     }
   };
 
-  // Toggle camera
   const toggleCamera = () => {
-    if (stream) {
-      const videoTracks = stream.getVideoTracks();
-      if (videoTracks.length > 0) {
-        const videoTrack = videoTracks[0];
-        videoTrack.enabled = !videoTrack.enabled;
-        setCameraEnabled(videoTrack.enabled);
+    setCameraEnabled((prevCameraEnabled) => !prevCameraEnabled);
+    if (videoRef.current) {
+      if (videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        const videoTracks = stream.getVideoTracks();
+        videoTracks[0].enabled = !cameraEnabled;
       }
     }
   };
-
-  useEffect(() => {
-    if (stream && videoRef.current) {
-      videoRef.current.srcObject = stream;
-    }
-  }, [stream]);
 
   const size = 30;
+
+  const router = useRouter();
+
+  const goToDashboard = () => {
+    router.push("/");
+  };
 
   return (
     <div className="w-full">
       <video ref={videoRef} autoPlay muted={micEnabled} />
-      <div className="flex justify-center gap-5 mt-5">
+      <div className="flex justify-center gap-10 mt-5">
         <button onClick={toggleMic}>
           {micEnabled ? <IoMdMic size={size} /> : <IoMdMicOff size={size} />}
         </button>
@@ -88,6 +93,11 @@ const MediaAccess = () => {
             <FaVideoSlash size={size} />
           )}
         </button>
+        <FaPhoneSlash
+          onClick={goToDashboard}
+          className="cursor-pointer bg-red-400 rounded-full h-10 w-10 p-2"
+          size={size}
+        />
       </div>
     </div>
   );

@@ -25,3 +25,15 @@ export function getFirstThreeWord(characters: string) {
   return firstThreeWords.toUpperCase();
 }
 
+export function separateWord(string: string) {
+  const word = string?.split("/");
+  return word[2];
+}
+
+export function getTime() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+
+  return `${hours}:${minutes}`;
+}

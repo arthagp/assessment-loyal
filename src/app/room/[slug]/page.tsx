@@ -21,8 +21,8 @@ const LobbyRoom = () => {
       ) : (
         <>
           <Navbar />
-          <div className="w-full max-sm:flex-col min-h-screen bg-gray-100 flex md:justify-between justify-around items-center md:p-20">
-            <div className="w-1/2 max-sm:w-[90%] flex justify-center items-center mt-20">
+          <div className="w-full responsive min-h-screen bg-gray-100 flex xl:justify-between justify-around items-center p-5 xl:p-20">
+            <div className="lg:w-1/2 w-[90%] flex justify-center items-center mt-20">
               <MediaAccess />
             </div>
             <div className="flex flex-col justify-center items-center gap-10 w-1/2">
